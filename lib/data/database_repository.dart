@@ -1,4 +1,5 @@
 abstract class DatabaseRepository {
+  Future<int> getDeletedCount();
   // Gibt die Anzahl der Items zurück.
   Future<int> getItemCount();
 

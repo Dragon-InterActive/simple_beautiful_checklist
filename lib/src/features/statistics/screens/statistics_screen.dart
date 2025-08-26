@@ -16,13 +16,16 @@ class StatisticsScreen extends StatefulWidget {
 
 class _StatisticsScreenState extends State<StatisticsScreen> {
   int currentTaskCount = 0;
+  int deletedTasksCount = 0;
 
   void loadItemCount() async {
     int taskCount = await widget.repository.getItemCount();
+    int deletedCount = await widget.repository.getDeletedCount();
 
-    if (taskCount != currentTaskCount) {
+    if (taskCount != currentTaskCount || deletedCount != deletedTasksCount) {
       setState(() {
         currentTaskCount = taskCount;
+        deletedTasksCount = deletedCount;
       });
     }
   }
@@ -39,7 +42,10 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
         child: Column(
           children: [
             const SizedBox(height: 60),
-            TaskCounterCard(taskCount: currentTaskCount),
+            TaskCounterCard(
+              taskCount: currentTaskCount,
+              deletedCount: deletedTasksCount,
+            ),
           ],
         ),
       ),

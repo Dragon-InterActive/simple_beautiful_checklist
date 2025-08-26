@@ -4,6 +4,12 @@ class MockDatabaseRepository implements DatabaseRepository {
   // Simulierte Datenbank mit einer Liste von Strings.
   // In einer echten App würden hier Daten aus einer Datenbank oder SharedPreferences geladen werden.
   final List<String> _items = [];
+  int _delCount = 0;
+
+  @override
+  Future<int> getDeletedCount() async {
+    return _delCount;
+  }
 
   @override
   Future<int> getItemCount() async {
@@ -26,6 +32,7 @@ class MockDatabaseRepository implements DatabaseRepository {
   @override
   Future<void> deleteItem(int index) async {
     _items.removeAt(index);
+    _delCount++;
   }
 
   @override
